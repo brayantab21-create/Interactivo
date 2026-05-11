@@ -250,7 +250,7 @@ DIMENSIONES = {
         "color": "#E67E22",
         "descripcion": "Presión financiera, trabajo simultáneo, falta de apoyo económico",
         "items": [
-            ("Trabaja para sostenerse económicamente mientras estudia", 2,
+            ("Trabaja (cualquier tipo de empleo, formal o informal, durante el semestre)", 2,
              "la presión económica y la necesidad de trabajar para sostenerse pueden llevar a la deserción"),
             ("No cuenta con apoyo financiero familiar o institucional", 2, None),
             ("Ha considerado pausar o dejar sus estudios por razones económicas", 3, None),
@@ -259,18 +259,20 @@ DIMENSIONES = {
     },
     "👨‍👩‍👧 Social y Familiar": {
         "color": "#8E44AD",
-        "descripcion": "Red de apoyo, aislamiento, origen geográfico, choque cultural",
+        "descripcion": "Red de apoyo, aislamiento, convivencia, origen geográfico, choque cultural",
         "items": [
             ("Se trasladó de otra ciudad o región para estudiar", 1,
              "estudiantes que se trasladan de áreas rurales a urbanas pueden experimentar un choque cultural"),
             ("No tiene red de apoyo cercana (familia, amigos) en la ciudad donde estudia", 2, None),
             ("Experimenta sensación de soledad o aislamiento en la institución", 2, None),
             ("Proviene de colegio con menor nivel académico o contexto rural", 1, None),
+            # ── NUEVO ÍTEM ────────────────────────────────────────
+            ("Vive solo, sin convivencia familiar ni de compañeros de cuarto", 2, None),
         ]
     },
     "📚 Académica": {
         "color": "#2980B9",
-        "descripcion": "Rendimiento, carga curricular, acceso a tutorías, nivelación",
+        "descripcion": "Rendimiento, carga curricular, nivelación, historia académica, modalidad de admisión",
         "items": [
             ("La carga académica supera su capacidad de gestión del tiempo", 2,
              "para graduarse en cinco años tienes que ver en promedio ocho materias... tú ya estás que no puedes con tu tiempo"),
@@ -280,6 +282,14 @@ DIMENSIONES = {
             ("No accede fácilmente a tutorías o monitorías de apoyo académico", 1,
              "si no tienes suerte te explican por fuera del horario, pero por lo general a veces no"),
             ("Percibe que los apoyos académicos disponibles son insuficientes o desactualizados", 1, None),
+            # ── NUEVOS ÍTEMS ──────────────────────────────────────
+            ("Ha sido admitido o readmitido por REINGRESO", 3, None),
+            ("PAPA entre 3,0 y 3,3 (rendimiento académico en zona de alerta)", 2, None),
+            ("PAPA inferior a 3,0 (rendimiento académico crítico)", 3, None),
+            ("Lleva más de 13 matrículas y ha avanzado menos del 50% del plan de estudios", 3, None),
+            ("Matriculó más de 14 créditos en el semestre actual", 2,
+             "tú ya estás que no puedes con tu tiempo, porque todos los trabajos son manuales"),
+            ("Admitido por programa especial PAES o PEAMA", 2, None),
         ]
     },
     "🧠 Salud Mental": {
@@ -384,6 +394,55 @@ INTERSECCIONES = [
                        "razón para continuar en la institución.",
         "nivel_alerta": "alto"
     },
+    # ── NUEVAS INTERSECCIONES ─────────────────────────────────────
+    {
+        "dims": ("📚 Académica", "💰 Económica"),
+        "titulo": "Reingreso + presión económica: segunda oportunidad en riesgo",
+        "descripcion": "Un estudiante en reingreso ya cargó con una interrupción previa. Si además trabaja "
+                       "o enfrenta precariedad, la probabilidad de un segundo abandono se multiplica. "
+                       "Requiere intervención desde el primer día del semestre.",
+        "nivel_alerta": "crítico"
+    },
+    {
+        "dims": ("📚 Académica", "👨‍👩‍👧 Social y Familiar"),
+        "titulo": "Bajo PAPA + vida en soledad: espiral de aislamiento y fracaso",
+        "descripcion": "El bajo rendimiento genera vergüenza y retraimiento social. Sin nadie con quien "
+                       "procesar el fracaso académico, el estudiante que vive solo tiende a desconectarse "
+                       "progresivamente antes de pedir ayuda.",
+        "nivel_alerta": "crítico"
+    },
+    {
+        "dims": ("📚 Académica", "🧠 Salud Mental"),
+        "titulo": "Historia académica crítica + agotamiento emocional",
+        "descripcion": "Más de 13 matrículas con bajo avance, PAPA en zona de riesgo o reingreso son "
+                       "señales de trayectoria marcada por el fracaso repetido. Ese historial tiene "
+                       "un costo emocional acumulado que puede convertirse en abandono anticipado.",
+        "nivel_alerta": "crítico"
+    },
+    {
+        "dims": ("💰 Económica", "📚 Académica"),
+        "titulo": "Trabaja + sobrecarga de créditos: colapso de la capacidad de respuesta",
+        "descripcion": "Matricular más de 14 créditos mientras se trabaja supera la capacidad de gestión "
+                       "de la mayoría de estudiantes. El tiempo para estudiar, descansar y atender "
+                       "imprevistos desaparece completamente.",
+        "nivel_alerta": "alto"
+    },
+    {
+        "dims": ("👨‍👩‍👧 Social y Familiar", "💰 Económica"),
+        "titulo": "Vive solo + trabaja: sobrecarga total sin red de amortiguación",
+        "descripcion": "El estudiante que vive solo y trabaja enfrenta la mayor densidad de responsabilidades "
+                       "sin apoyo de convivencia. Cualquier imprevisto puede detonar el abandono "
+                       "sin que nadie lo note a tiempo.",
+        "nivel_alerta": "alto"
+    },
+    {
+        "dims": ("📚 Académica", "🏛️ Institucional"),
+        "titulo": "PAES/PEAMA + rutas de apoyo invisibles",
+        "descripcion": "Los estudiantes de admisión especial enfrentan brechas académicas previas y "
+                       "frecuentemente desconocen las rutas de acompañamiento diseñadas para ellos. "
+                       "La institución debe ir activamente a ellos, no esperar que lleguen.",
+        "nivel_alerta": "alto"
+    },
 ]
 
 # ─────────────────────────────────────────────
@@ -443,12 +502,20 @@ ACCIONES_DIM = {
     "👨‍👩‍👧 Social y Familiar": {
         "umbral": 2,
         "icono": "👨‍👩‍👧",
-        "accion": "Activar programas de integración para estudiantes foráneos o de primera generación. Conectar con residencias estudiantiles, redes de acogida o grupos de interés compartido."
+        "accion": "Activar programas de integración para estudiantes foráneos, de primera generación o que viven solos. "
+                  "Conectar con residencias estudiantiles, redes de acogida o grupos de interés compartido. "
+                  "Para estudiantes que viven solos, el acompañamiento presencial o por canales digitales es especialmente importante: "
+                  "el aislamiento físico tiende a volverse aislamiento institucional."
     },
     "📚 Académica": {
         "umbral": 3,
         "icono": "📚",
-        "accion": "Vincular a programa de nivelación reforzado y tutorías actualizadas. Revisar el plan de materias con consejero académico para construir una ruta realista de avance curricular."
+        "accion": "Vincular a programa de nivelación reforzado y tutorías actualizadas. "
+                  "Revisar el plan de materias: si el PAPA es ≤3,3 o hay más de 13 matrículas con bajo avance, "
+                  "construir una ruta curricular realista con consejero académico. "
+                  "Si el estudiante está en reingreso, activar protocolo de seguimiento desde el primer día. "
+                  "Para estudiantes PAES/PEAMA, asegurar vinculación inmediata a programas de acompañamiento diferenciado. "
+                  "Evaluar reducción de créditos si supera los 14 en el semestre actual."
     },
     "🧠 Salud Mental": {
         "umbral": 2,
