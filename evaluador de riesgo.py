@@ -246,33 +246,36 @@ h1, h2, h3 {
 # Peso: 1 = leve, 2 = moderado, 3 = crítico
 # ─────────────────────────────────────────────
 DIMENSIONES = {
-    "💰 Económica": {
+    "🎨 Dimensión Estética": {
         "color": "#E67E22",
-        "descripcion": "Presión financiera, trabajo simultáneo, falta de apoyo económico",
+        "descripcion": "Condiciones económicas, trabajo simultáneo y gestión del tiempo disponible",
         "items": [
             ("Trabaja (cualquier tipo de empleo, formal o informal, durante el semestre)", 2,
              "la presión económica y la necesidad de trabajar para sostenerse pueden llevar a la deserción"),
             ("No cuenta con apoyo financiero familiar o institucional", 2, None),
             ("Ha considerado pausar o dejar sus estudios por razones económicas", 3, None),
             ("Tiene dificultades para cubrir gastos básicos (alimentación, transporte, materiales)", 2, None),
+            ("El tiempo libre disponible fuera del horario académico es insuficiente para estudiar o descansar", 2, None),
+            ("Tiene responsabilidades extracurriculares fijas que consumen tiempo significativo (cuidado de familiares, labores del hogar, etc.)", 2, None),
         ]
     },
-    "👨‍👩‍👧 Social y Familiar": {
+    "👨‍👩‍👧 Dimensión Relacional": {
         "color": "#8E44AD",
-        "descripcion": "Red de apoyo, aislamiento, convivencia, origen geográfico, choque cultural",
+        "descripcion": "Vínculos familiares, redes de pares, convivencia, origen geográfico y choque cultural",
         "items": [
             ("Se trasladó de otra ciudad o región para estudiar", 1,
              "estudiantes que se trasladan de áreas rurales a urbanas pueden experimentar un choque cultural"),
+            ("Vive solo, sin convivencia familiar ni de compañeros de cuarto", 2, None),
             ("No tiene red de apoyo cercana (familia, amigos) en la ciudad donde estudia", 2, None),
             ("Experimenta sensación de soledad o aislamiento en la institución", 2, None),
             ("Proviene de colegio con menor nivel académico o contexto rural", 1, None),
-            # ── NUEVO ÍTEM ────────────────────────────────────────
-            ("Vive solo, sin convivencia familiar ni de compañeros de cuarto", 2, None),
+            ("Tiene conflictos o tensiones significativas con su familia o entorno cercano", 2, None),
+            ("No ha logrado construir vínculos con compañeros de carrera", 2, None),
         ]
     },
-    "📚 Académica": {
+    "📚 Dimensión Intelectual": {
         "color": "#2980B9",
-        "descripcion": "Rendimiento, carga curricular, nivelación, historia académica, modalidad de admisión",
+        "descripcion": "Rendimiento académico, carga curricular, nivelación, historia de matrícula y modalidad de admisión",
         "items": [
             ("La carga académica supera su capacidad de gestión del tiempo", 2,
              "para graduarse en cinco años tienes que ver en promedio ocho materias... tú ya estás que no puedes con tu tiempo"),
@@ -282,7 +285,6 @@ DIMENSIONES = {
             ("No accede fácilmente a tutorías o monitorías de apoyo académico", 1,
              "si no tienes suerte te explican por fuera del horario, pero por lo general a veces no"),
             ("Percibe que los apoyos académicos disponibles son insuficientes o desactualizados", 1, None),
-            # ── NUEVOS ÍTEMS ──────────────────────────────────────
             ("Ha sido admitido o readmitido por REINGRESO", 3, None),
             ("PAPA entre 3,0 y 3,3 (rendimiento académico en zona de alerta)", 2, None),
             ("PAPA inferior a 3,0 (rendimiento académico crítico)", 3, None),
@@ -292,21 +294,17 @@ DIMENSIONES = {
             ("Admitido por programa especial PAES o PEAMA", 2, None),
         ]
     },
-    "🧠 Salud Mental": {
-        "color": "#E74C3C",
-        "descripcion": "Estrés, ansiedad, agotamiento emocional, uso de servicios de bienestar",
+    "🧠 Dimensión Individual": {
+        "color": "#9B59B6",
+        "descripcion": "Salud mental, bienestar emocional, vocación, identidad profesional y sentido de pertenencia",
         "items": [
+            # ── Salud mental ──────────────────────────────────────
             ("Reporta síntomas de estrés, ansiedad o agotamiento emocional frecuente", 2,
              "la carga emocional y el estrés pueden ser factores significativos que afectan el rendimiento y la motivación"),
             ("Ha presentado episodios de depresión o crisis emocional durante su carrera", 3, None),
             ("Siente que la presión académica afecta su bienestar general", 2, None),
             ("Desconoce o no utiliza los servicios de psicología y bienestar universitario", 1, None),
-        ]
-    },
-    "🧭 Vocacional": {
-        "color": "#27AE60",
-        "descripcion": "Claridad sobre la elección de carrera, identidad profesional, sentido de pertenencia",
-        "items": [
+            # ── Vocacional ────────────────────────────────────────
             ("Ingresó al programa sin tener certeza sobre su vocación", 2,
              "muchos estudiantes ingresan a programas sin una verdadera vocación, lo que puede llevar a la desilusión"),
             ("Siente que la carrera no corresponde realmente a sus intereses o expectativas", 2, None),
@@ -315,9 +313,9 @@ DIMENSIONES = {
              "la baja densidad de contenidos específicos al inicio debilita los lazos simbólicos con la carrera"),
         ]
     },
-    "🏛️ Institucional": {
+    "🏛️ Dimensión Institucional": {
         "color": "#16A085",
-        "descripcion": "Acceso a servicios, rutas de atención, orientación académica, cultura institucional",
+        "descripcion": "Acceso a servicios, rutas de atención, orientación académica y cultura institucional",
         "items": [
             ("Desconoce los servicios y rutas de apoyo que ofrece la institución", 1, None),
             ("Las rutas de atención le parecen informales, azarosas o poco accesibles", 2,
@@ -334,28 +332,28 @@ DIMENSIONES = {
 # ─────────────────────────────────────────────
 INTERSECCIONES = [
     {
-        "dims": ("💰 Económica", "📚 Académica"),
+        "dims": ("🎨 Dimensión Estética", "📚 Dimensión Intelectual"),
         "titulo": "Doble jornada: trabajo + estudio",
         "descripcion": "Equilibrar trabajo remunerado y exigencias académicas genera fatiga crónica. "
                        "El agotamiento reduce la capacidad de atención, participación y resiliencia ante dificultades académicas.",
         "nivel_alerta": "alto"
     },
     {
-        "dims": ("👨‍👩‍👧 Social y Familiar", "🧠 Salud Mental"),
+        "dims": ("👨‍👩‍👧 Dimensión Relacional", "🧠 Dimensión Individual"),
         "titulo": "Aislamiento que amplifica el malestar emocional",
         "descripcion": "Sin red de apoyo, los episodios de ansiedad o depresión no tienen contención. "
                        "La soledad actúa como multiplicador del impacto de otras dificultades.",
         "nivel_alerta": "alto"
     },
     {
-        "dims": ("🧭 Vocacional", "📚 Académica"),
-        "titulo": "Desmotivación que profundiza la percepción de fracaso",
+        "dims": ("🧠 Dimensión Individual", "📚 Dimensión Intelectual"),
+        "titulo": "Desmotivación vocacional que profundiza la percepción de fracaso",
         "descripcion": "La falta de identificación con la carrera hace que los errores académicos se "
                        "interpreten como confirmación de que 'este no es mi lugar', acelerando el abandono.",
         "nivel_alerta": "alto"
     },
     {
-        "dims": ("💰 Económica", "👨‍👩‍👧 Social y Familiar"),
+        "dims": ("🎨 Dimensión Estética", "👨‍👩‍👧 Dimensión Relacional"),
         "titulo": "Vulnerabilidad material y social simultánea",
         "descripcion": "El desplazamiento geográfico sin red de apoyo combinado con presión económica "
                        "representa uno de los perfiles de riesgo más críticos: el estudiante enfrenta "
@@ -363,23 +361,23 @@ INTERSECCIONES = [
         "nivel_alerta": "crítico"
     },
     {
-        "dims": ("🏛️ Institucional", "🧠 Salud Mental"),
-        "titulo": "Invisibilidad institucional que agrava la crisis",
+        "dims": ("🏛️ Dimensión Institucional", "🧠 Dimensión Individual"),
+        "titulo": "Invisibilidad institucional que agrava la crisis emocional",
         "descripcion": "No saber a quién acudir en un momento de crisis emocional es un detonante directo "
                        "de abandono. La informalidad en las rutas de atención tiene consecuencias graves "
                        "cuando el malestar es urgente.",
         "nivel_alerta": "alto"
     },
     {
-        "dims": ("🧭 Vocacional", "🏛️ Institucional"),
-        "titulo": "Desorientación sin andamiaje institucional",
+        "dims": ("🧠 Dimensión Individual", "🏛️ Dimensión Institucional"),
+        "titulo": "Desorientación vocacional sin andamiaje institucional",
         "descripcion": "Un estudiante sin vocación clara que además no recibe orientación institucional "
                        "queda en un vacío: no sabe qué quiere y no tiene a quién preguntarle. "
                        "La institución falla en proveer el soporte que sostendría la permanencia.",
         "nivel_alerta": "moderado"
     },
     {
-        "dims": ("📚 Académica", "🏛️ Institucional"),
+        "dims": ("📚 Dimensión Intelectual", "🏛️ Dimensión Institucional"),
         "titulo": "Carga curricular sin soporte formal",
         "descripcion": "La saturación académica sin tutorías accesibles y rutas claras obliga al estudiante "
                        "a resolver por sus propios medios o rendirse. El apoyo contingente e informal "
@@ -387,16 +385,15 @@ INTERSECCIONES = [
         "nivel_alerta": "moderado"
     },
     {
-        "dims": ("👨‍👩‍👧 Social y Familiar", "🧭 Vocacional"),
+        "dims": ("👨‍👩‍👧 Dimensión Relacional", "🧠 Dimensión Individual"),
         "titulo": "Sin pertenencia social ni vocacional",
         "descripcion": "El sentido de pertenencia se construye tanto desde los vínculos con pares como "
                        "desde la identidad disciplinar. Si ambos fallan, el estudiante no encuentra "
                        "razón para continuar en la institución.",
         "nivel_alerta": "alto"
     },
-    # ── NUEVAS INTERSECCIONES ─────────────────────────────────────
     {
-        "dims": ("📚 Académica", "💰 Económica"),
+        "dims": ("📚 Dimensión Intelectual", "🎨 Dimensión Estética"),
         "titulo": "Reingreso + presión económica: segunda oportunidad en riesgo",
         "descripcion": "Un estudiante en reingreso ya cargó con una interrupción previa. Si además trabaja "
                        "o enfrenta precariedad, la probabilidad de un segundo abandono se multiplica. "
@@ -404,7 +401,7 @@ INTERSECCIONES = [
         "nivel_alerta": "crítico"
     },
     {
-        "dims": ("📚 Académica", "👨‍👩‍👧 Social y Familiar"),
+        "dims": ("📚 Dimensión Intelectual", "👨‍👩‍👧 Dimensión Relacional"),
         "titulo": "Bajo PAPA + vida en soledad: espiral de aislamiento y fracaso",
         "descripcion": "El bajo rendimiento genera vergüenza y retraimiento social. Sin nadie con quien "
                        "procesar el fracaso académico, el estudiante que vive solo tiende a desconectarse "
@@ -412,7 +409,7 @@ INTERSECCIONES = [
         "nivel_alerta": "crítico"
     },
     {
-        "dims": ("📚 Académica", "🧠 Salud Mental"),
+        "dims": ("📚 Dimensión Intelectual", "🧠 Dimensión Individual"),
         "titulo": "Historia académica crítica + agotamiento emocional",
         "descripcion": "Más de 13 matrículas con bajo avance, PAPA en zona de riesgo o reingreso son "
                        "señales de trayectoria marcada por el fracaso repetido. Ese historial tiene "
@@ -420,7 +417,7 @@ INTERSECCIONES = [
         "nivel_alerta": "crítico"
     },
     {
-        "dims": ("💰 Económica", "📚 Académica"),
+        "dims": ("🎨 Dimensión Estética", "📚 Dimensión Intelectual"),
         "titulo": "Trabaja + sobrecarga de créditos: colapso de la capacidad de respuesta",
         "descripcion": "Matricular más de 14 créditos mientras se trabaja supera la capacidad de gestión "
                        "de la mayoría de estudiantes. El tiempo para estudiar, descansar y atender "
@@ -428,7 +425,7 @@ INTERSECCIONES = [
         "nivel_alerta": "alto"
     },
     {
-        "dims": ("👨‍👩‍👧 Social y Familiar", "💰 Económica"),
+        "dims": ("👨‍👩‍👧 Dimensión Relacional", "🎨 Dimensión Estética"),
         "titulo": "Vive solo + trabaja: sobrecarga total sin red de amortiguación",
         "descripcion": "El estudiante que vive solo y trabaja enfrenta la mayor densidad de responsabilidades "
                        "sin apoyo de convivencia. Cualquier imprevisto puede detonar el abandono "
@@ -436,7 +433,7 @@ INTERSECCIONES = [
         "nivel_alerta": "alto"
     },
     {
-        "dims": ("📚 Académica", "🏛️ Institucional"),
+        "dims": ("📚 Dimensión Intelectual", "🏛️ Dimensión Institucional"),
         "titulo": "PAES/PEAMA + rutas de apoyo invisibles",
         "descripcion": "Los estudiantes de admisión especial enfrentan brechas académicas previas y "
                        "frecuentemente desconocen las rutas de acompañamiento diseñadas para ellos. "
@@ -494,43 +491,45 @@ RUTAS = {
 # ACCIONES ESPECÍFICAS POR DIMENSIÓN
 # ─────────────────────────────────────────────
 ACCIONES_DIM = {
-    "💰 Económica": {
+    "🎨 Dimensión Estética": {
         "umbral": 3,
-        "icono": "💰",
-        "accion": "Revisar acceso a becas socioeconómicas, subsidios de alimentación y transporte, y opciones de trabajo estudiantil institucional. Considerar ajuste de carga académica para quienes trabajan."
+        "icono": "🎨",
+        "accion": "Revisar acceso a becas socioeconómicas, subsidios de alimentación y transporte, y opciones "
+                  "de trabajo estudiantil institucional. Para estudiantes que trabajan, evaluar ajuste de carga "
+                  "académica y horarios flexibles. Explorar si las responsabilidades externas pueden aliviarse "
+                  "con apoyos institucionales (comedores, transporte, guarderías)."
     },
-    "👨‍👩‍👧 Social y Familiar": {
+    "👨‍👩‍👧 Dimensión Relacional": {
         "umbral": 2,
         "icono": "👨‍👩‍👧",
         "accion": "Activar programas de integración para estudiantes foráneos, de primera generación o que viven solos. "
-                  "Conectar con residencias estudiantiles, redes de acogida o grupos de interés compartido. "
-                  "Para estudiantes que viven solos, el acompañamiento presencial o por canales digitales es especialmente importante: "
-                  "el aislamiento físico tiende a volverse aislamiento institucional."
+                  "Conectar con residencias estudiantiles, redes de acogida y grupos de interés compartido. "
+                  "Para quienes viven solos, el acompañamiento presencial es prioritario: "
+                  "el aislamiento físico tiende a convertirse en aislamiento institucional."
     },
-    "📚 Académica": {
+    "📚 Dimensión Intelectual": {
         "umbral": 3,
         "icono": "📚",
-        "accion": "Vincular a programa de nivelación reforzado y tutorías actualizadas. "
-                  "Revisar el plan de materias: si el PAPA es ≤3,3 o hay más de 13 matrículas con bajo avance, "
-                  "construir una ruta curricular realista con consejero académico. "
-                  "Si el estudiante está en reingreso, activar protocolo de seguimiento desde el primer día. "
-                  "Para estudiantes PAES/PEAMA, asegurar vinculación inmediata a programas de acompañamiento diferenciado. "
-                  "Evaluar reducción de créditos si supera los 14 en el semestre actual."
+        "accion": "Vincular a nivelación reforzada y tutorías actualizadas. "
+                  "Si el PAPA es ≤3,3 o hay más de 13 matrículas con bajo avance, construir ruta curricular "
+                  "realista con consejero académico. En reingreso, activar protocolo de seguimiento desde el primer día. "
+                  "Para PAES/PEAMA, asegurar vinculación inmediata a programas diferenciados. "
+                  "Evaluar reducción de créditos si supera los 14 en el semestre."
     },
-    "🧠 Salud Mental": {
+    "🧠 Dimensión Individual": {
         "umbral": 2,
         "icono": "🧠",
-        "accion": "Referencia proactiva a psicología — no esperar que el estudiante solicite el servicio. Capacitar docentes para identificar señales de alerta. Mapear y comunicar rutas de atención en salud mental."
+        "accion": "Referencia proactiva a psicología — no esperar que el estudiante solicite el servicio. "
+                  "Si hay desajuste vocacional, aplicar instrumento de orientación y explorar transferencia interna, "
+                  "doble programa o ajustes curriculares. Capacitar docentes para identificar señales de alerta "
+                  "tanto emocionales como de desmotivación vocacional."
     },
-    "🧭 Vocacional": {
-        "umbral": 2,
-        "icono": "🧭",
-        "accion": "Aplicar instrumento de orientación vocacional. Explorar posibilidad de transferencia interna, doble programa o ajustes curriculares que generen mayor identificación con la disciplina."
-    },
-    "🏛️ Institucional": {
+    "🏛️ Dimensión Institucional": {
         "umbral": 2,
         "icono": "🏛️",
-        "accion": "Mapear y comunicar rutas de atención de forma clara y accesible. Designar un referente institucional como punto de contacto único. Formalizar el acompañamiento para que no dependa del azar."
+        "accion": "Mapear y comunicar rutas de atención de forma clara y accesible. "
+                  "Designar un referente institucional como punto de contacto único. "
+                  "Formalizar el acompañamiento para que no dependa del azar ni de la iniciativa del estudiante."
     },
 }
 
