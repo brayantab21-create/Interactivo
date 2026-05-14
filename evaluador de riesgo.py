@@ -1,5 +1,5 @@
 """
-Evaluador de Riesgo de Deserción Estudiantil
+Analizador de Riesgo Inicial Estudiantil
 Sistema Semáforo con Perspectiva Interseccional
 ----------------------------------------------------
 Instalar dependencias:
